@@ -510,6 +510,249 @@
 				]
 			}
 		},
+		"/admin/common/privacy_terms_about": {
+			"put": {
+				"operationId": "Privacy_terms_about",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"about_us": {
+										"type": "string"
+									},
+									"terms_condition": {
+										"type": "string"
+									},
+									"privacy_policy": {
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/common/privacy_terms_about_detail": {
+			"get": {
+				"operationId": "Privacy_terms_about_detail",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/admin/common/create_faq": {
+			"post": {
+				"operationId": "Create_faq",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"answer": {
+										"type": "string"
+									},
+									"question": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"answer",
+									"question"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/common/faq_listing": {
+			"get": {
+				"operationId": "Faq_listing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/admin/common/update_faq": {
+			"put": {
+				"operationId": "Update_faq",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"answer": {
+										"type": "string"
+									},
+									"question": {
+										"type": "string"
+									},
+									"question_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"answer",
+									"question",
+									"question_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/common/delete_faq": {
+			"delete": {
+				"operationId": "Delete_faq",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"question_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"question_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/admin/auth/login": {
 			"post": {
 				"operationId": "Login",

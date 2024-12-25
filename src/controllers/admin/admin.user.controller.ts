@@ -3,9 +3,9 @@ import { Request, Response } from "express";
 import { ApiResponse } from "../../utils/interface.utils";
 import admin_user_handler from "../../handlers/admin/admin.user.handler";
 import { showResponse } from "../../utils/response.utils";
-import { validate_change_password, validate_forgotPassword, validate_login, validate_register, validate_resendOtp, validate_update_profile, validate_verifyOtp } from "../../validator/user.auth.validator";
+import { validate_change_password, validate_forgotPassword, validate_login, validate_register, validate_resendOtp, validate_update_profile, validate_verifyOtp } from "../../validator/user/user.auth.validator";
 import statusCodes from "../../constant/statusCodes";
-import { validate_user_detail } from "../../validator/admin.user.validator";
+import { validate_user_detail } from "../../validator/admin/admin.user.validator";
 
 @Tags('admin user routes')
 @Route('/admin/user')

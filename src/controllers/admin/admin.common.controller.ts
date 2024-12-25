@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Post, Put, Route, Security, Tags } from "tsoa";
+import { Body, Controller, Delete, Get, Post, Put, Route, Security, Tags } from "tsoa";
 import { Request, Response } from "express";
 import { ApiResponse } from "../../utils/interface.utils";
 import admin_common_handler from "../../handlers/admin/admin.common.handler";
 import { showResponse } from "../../utils/response.utils";
 import statusCodes from "../../constant/statusCodes";
-import { validate_delete_faq, validate_privacy_terms_about, validate_update_faq } from "../../validator/admin.common.validator";
+import { validate_delete_faq, validate_privacy_terms_about, validate_update_faq } from "../../validator/admin/admin.common.validator";
 
 @Tags('admin common routes')
 @Route('/admin/common')
@@ -52,7 +52,7 @@ export default class admin_common_controller extends Controller {
     }
 
     @Security('Bearer')
-    @Get('/update_faq')
+    @Put('/update_faq')
     public async update_faq(@Body() request:{question_id:string,question:string,answer:string}): Promise<ApiResponse> {
         const validate = validate_update_faq(request);
         if (validate.error) {
@@ -63,7 +63,7 @@ export default class admin_common_controller extends Controller {
     }
 
     @Security('Bearer')
-    @Get('/delete_faq')
+    @Delete('/delete_faq')
     public async delete_faq(@Body() request:{question_id:string}): Promise<ApiResponse> {
         const validate = validate_delete_faq(request);
         if (validate.error) {

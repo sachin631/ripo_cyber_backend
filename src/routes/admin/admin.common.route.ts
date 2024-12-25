@@ -46,7 +46,15 @@ router.delete('/delete_faq', verifyAdminToken, async (req: Request | any, res: R
     return showOutput(res, result, result.code);
 });
 
+//home //discription //admin done
+//your carer //dis  // admin done
 
+//testiminial,usecase // name ,image,dis
+//contact us //name, email, phone, message
+//internship_category //name
+//internshi details //cat_idinternship_name,description, image
+//internship_form // intenship_id, name, email, phone
+//work together //name, email, phone //fb,insta,twitter link
 
 
 

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { ApiResponse } from "../../utils/interface.utils";
 import user_auth_handler from "../../handlers/user/user.auth.handler";
 import { showResponse } from "../../utils/response.utils";
-import { validate_change_password, validate_forgotPassword, validate_login, validate_register, validate_resendOtp, validate_update_profile, validate_verifyOtp } from "../../validator/user.auth.validator";
+import { validate_change_password, validate_forgotPassword, validate_login, validate_register, validate_resendOtp, validate_update_profile, validate_verifyOtp } from "../../validator/user/user.auth.validator";
 import statusCodes from "../../constant/statusCodes";
 
 @Tags('user auth routes')

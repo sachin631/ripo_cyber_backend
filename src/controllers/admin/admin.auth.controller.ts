@@ -4,7 +4,7 @@ import { ApiResponse } from "../../utils/interface.utils";
 import admin_auth_handler from "../../handlers/admin/admin.auth.handler";
 import { showResponse } from "../../utils/response.utils";
 import statusCodes from "../../constant/statusCodes";
-import { validate_admin_change_password, validate_admin_forgotPassword, validate_admin_login, validate_admin_resendOtp, validate_admin_update_profile, validate_admin_verifyOtp } from "../../validator/admin.auth.validator";
+import { validate_admin_change_password, validate_admin_forgotPassword, validate_admin_login, validate_admin_resendOtp, validate_admin_update_profile, validate_admin_verifyOtp } from "../../validator/admin/admin.auth.validator";
 
 @Tags('admin auth routes')
 @Route('/admin/auth')

@@ -21,7 +21,7 @@ const admin_common_handler = {
         if (about_us) {
             update_obj.about_us = about_us
         }
-        const res = await admin_common_model.updateOne({}, update_obj, { new: true });
+        const res = await admin_common_model.findOneAndUpdate({}, update_obj, {upsert: true, new: true });
         if (!res) {
             return showResponse(false, admin_common.common_update_err, null, statusCodes.API_ERROR);
         }
