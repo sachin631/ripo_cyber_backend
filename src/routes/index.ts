@@ -11,11 +11,13 @@ import admin_user_router from "./admin/admin.user.route";
 import admin_common_router from './admin/admin.common.route';
 import admin_home_router from './admin/admin.home.route';
 import admin_your_career_router from './admin/admin.yourCareer.route';
+import admin_useCase from './admin/admin.useCase.route';
 
 Route.use('/admin/auth',admin_auth_router);
 Route.use('/admin/user',admin_user_router);
 Route.use('/admin/common',admin_common_router);
 Route.use('/admin/home',admin_home_router);
 Route.use('/admin/youCareer',admin_your_career_router);
+Route.use('/admin/useCase',admin_useCase);
 
 export default Route
