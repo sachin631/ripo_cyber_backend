@@ -53,4 +53,35 @@ const youCareer={
     you_career_fetched_err:'Error while fetched you career ',
 }
 
-export { adminAuth, admin_user, admin_common, admin_home,youCareer }
+const admin_usecase={
+    usecase_create_successfully:'your usecase created successfully',
+    usecase_create_error:'error while creating usecase',
+    usecase_not_found:'invalid useCase, usecase not found',
+    usecase_found_success:'usecase found successfully',
+    usecase_update_success:'usecase updated successfully',
+    usecase_update_error:'error while updating usecase',
+    usecase_delete_success:'usecase deleted successfully',
+    usecase_delete_error:'error while deleting usecase',
+}
+
+const admin_contact_us={
+    contact_us_retrived_success:'contact us retrieved successfully',
+    contact_us_retrived_error:'error while retrieving contact us',
+    contact_us_delete_success:'contact us deleted successfully',
+    contact_us_delete_error:'error while deleting contact us',
+    contact_us_not_found:'invalid contact us, contact us not found',
+}
+const internship_category={
+    internship_category_create_success:'internship category created successfully',
+    internship_category_create_error:'error while creating internship category',
+    internship_category_update_success:'internship category updated successfully',
+    internship_category_update_error:'error while updating internship category',
+    internship_category_delete_success:'internship category deleted successfully',
+    internship_category_delete_error:'error while deleting internship category',
+    intership_category_already_exist:'internship category already exist',
+    internship_category_fetched_successfully:'internship category fetched successfully',
+    internship_category_fetched_error:'error while fetching internship category',
+    internship_category_not_found:'invalid internship category, internship category not found',
+}
+
+export { adminAuth, admin_user, admin_common, admin_home,youCareer,admin_usecase,admin_contact_us,internship_category }

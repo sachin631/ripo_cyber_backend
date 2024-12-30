@@ -17,4 +17,9 @@ const userAuth={
     password_update_success:'password updated successfully',
 }
 
-export  {userAuth}
+const user_common={
+    contact_us_failed:'contact us failed',
+    contact_us_success:'contact us successfully',
+}
+
+export  {userAuth,user_common}

@@ -14,7 +14,13 @@ require('./connection/connecttion');
 let PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+    {
+        origin: 'http://localhost:3000', // Frontend URLs
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
+        credentials: true, // Allow cookies or authentication headers
+    }
+));
 app.use(cookie_parser());
 
 // swagger setup
@@ -33,15 +39,15 @@ app.use("/api-docs", swaggerUi.serve,
 );
 
 //create admin account
-const adminFunction=async()=>{
-    const hashed=await hashPassword('123456')
-    const admin_cred:any={
-        name:'admin',
-        email:'admin@yopmail.com',
-        password:hashed
+const adminFunction = async () => {
+    const hashed = await hashPassword('123456')
+    const admin_cred: any = {
+        name: 'admin',
+        email: 'admin@yopmail.com',
+        password: hashed
     }
-    const is_admin=await admin_model.findOne({email:admin_cred.email,status:ADMIN_STATUS.ACTIVE});
-    if(is_admin){
+    const is_admin = await admin_model.findOne({ email: admin_cred.email, status: ADMIN_STATUS.ACTIVE });
+    if (is_admin) {
         return;
     }
     await admin_model.create(admin_cred);

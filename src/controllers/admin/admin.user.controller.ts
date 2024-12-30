@@ -22,8 +22,8 @@ export default class admin_user_controller extends Controller {
    
 
     @Get('/listing')
-    public async listing(): Promise<ApiResponse> {
-        const res = admin_user_handler.listing();
+    public async listing(@Query()page?:number,@Query() limit?:number, @Query() search_key?:string): Promise<ApiResponse> {
+        const res = admin_user_handler.listing(page,limit,search_key);
         return res;
     }
 

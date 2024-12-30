@@ -6,8 +6,9 @@ const router = express.Router();
 
 
 router.get('/listing', async (req: Request | any, res: Response | any) => {
+    const {page,limit,search_key}=req.query
     const controller = new admin_user_controller(req, res);
-    const result: ApiResponse = await controller.listing();
+    const result: ApiResponse = await controller.listing(page,limit,search_key);
     return showOutput(res, result, result.code);
 });
 

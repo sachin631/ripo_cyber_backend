@@ -14,12 +14,43 @@ import { Security } from "tsoa";
 
 const admin_user_handler = {
 
-    listing: async (): Promise<ApiResponse> => {
-        const user_list = await user_model.find({ status: { $ne: USER_STATUS.DELETED } });
-        if (!user_list) {
-            return showResponse(false, admin_user.user_not_found, null, statusCodes.API_ERROR);
-        }
-        return showResponse(true, admin_user.user_list_fetched_success, user_list, statusCodes.SUCCESS);
+    listing: async (page: any = 1, limit: any = 10, search_key: any = ''): Promise<ApiResponse> => {
+        page = Number(page);
+        limit = Number(limit);
+        const user_list = await user_model.aggregate([
+            {
+                $match: {
+                    status: { $ne: USER_STATUS.DELETED },
+                    name: {
+                        $regex: search_key,
+                        $options: 'i'
+                    }
+                }
+            },
+            {
+                $sort: {
+                    createdAt: -1
+                }
+            },
+            {
+                $skip: (page - 1) * limit
+            },
+            {
+                $limit: limit
+            },
+
+        ]);
+        const totalCount = await user_model.countDocuments({
+            status: { $ne: USER_STATUS.DELETED },
+            name: {
+                $regex: search_key,
+                $options: 'i'
+            }
+        });
+        const totalPages = Math.ceil(totalCount / limit);
+        const currentPage = page;
+
+        return showResponse(true, admin_user.user_list_fetched_success, { user_list, totalCount, totalPages, currentPage }, statusCodes.SUCCESS);
     },
 
     detail: async (user_id: any): Promise<ApiResponse> => {

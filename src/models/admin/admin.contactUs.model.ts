@@ -10,7 +10,7 @@ let contact_us_schema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    phone:{
+    phone_number:{
         type: String,
         default: ''
     },
