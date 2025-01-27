@@ -105,8 +105,7 @@ const admin_auth_handler = {
     },
 
     updateProfile: async (data: any, profile_pic: any, user_id: any): Promise<ApiResponse> => {
-        console.log(user_id, 'user_id');
-        const { name, phone_number } = data;
+        const { name } = data;
         const user = await admin_model.findOne({ _id: user_id, status: USER_STATUS.ACTIVE });
         if (!user) {
             return showResponse(false, adminAuth.admin_not_found, null, statusCodes.API_ERROR);
@@ -126,9 +125,7 @@ const admin_auth_handler = {
         if (name) {
             obj.name = name;
         }
-        if (phone_number) {
-            obj.phone_number = phone_number;
-        }
+        
         const updated_user = await admin_model.findByIdAndUpdate(user_id, obj, { new: true });
         if (!updated_user) {
             return showResponse(false, adminAuth.profile_update_failed, null, statusCodes.API_ERROR);

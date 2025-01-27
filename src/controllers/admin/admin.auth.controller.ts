@@ -75,8 +75,8 @@ export default class admin_auth_controller extends Controller {
 
     @Security('Bearer')
     @Put('/update_profile')
-    public async updateProfile(@FormField() name: string, @FormField() phone_number: string, @UploadedFile() profile_pic: Express.Multer.File): Promise<ApiResponse> {
-        const request = { name, phone_number }
+    public async updateProfile(@FormField() name: string, @UploadedFile() profile_pic: Express.Multer.File): Promise<ApiResponse> {
+        const request = { name }
         const validate = validate_admin_update_profile(request);
         if (validate.error) {
             return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);

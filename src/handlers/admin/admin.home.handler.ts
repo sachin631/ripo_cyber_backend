@@ -9,20 +9,30 @@ const admin_home_handler = {
 
 
     create_home: async (data: any): Promise<ApiResponse> => {
-        const { description } = data;
-        const res = admin_home_model.findOneAndUpdate({}, { description }, { upsert: true, new: true });
-        if (!res) {
-            return showResponse(false, admin_home.home_content_update_failed, null, statusCodes.API_ERROR);
+        try {
+            const { description } = data;
+            const res =await admin_home_model.findOneAndUpdate({}, { description }, { upsert: true, new: true });
+            if (!res) {
+                return showResponse(false, admin_home.home_content_update_failed, null, statusCodes.API_ERROR);
+            }
+            return showResponse(true, admin_home.home_content_update_success, res, statusCodes.SUCCESS);
+        } catch (error) {
+            return showResponse(false, 'something went wrong', null, statusCodes.API_ERROR);
         }
-        return showResponse(true, admin_home.home_content_update_success, res, statusCodes.SUCCESS);
+
     },
 
     home_detail: async (): Promise<ApiResponse> => {
-        const res = await admin_home_model.findOne({});
-        if (!res) {
-            return showResponse(false, admin_home.home_content_fetched_err, null, statusCodes.API_ERROR);
+        try {
+            const res = await admin_home_model.findOne();
+            if (!res) {
+                return showResponse(false, admin_home.home_content_fetched_err, null, statusCodes.API_ERROR);
+            }
+            return showResponse(true, admin_home.home_content_fetched_success, res, statusCodes.SUCCESS);
+        } catch (error) {
+            return showResponse(false, 'something went wrong', null, statusCodes.API_ERROR);
         }
-        return showResponse(true, admin_home.home_content_fetched_success, res, statusCodes.SUCCESS);
+
     },
 
 }

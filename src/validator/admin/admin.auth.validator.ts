@@ -29,7 +29,6 @@ export const validate_admin_verifyOtp=(user:any)=>{
 export const validate_admin_update_profile=(user:any)=>{
     return Joi.object({
         name: Joi.string().required(),
-        phone_number: Joi.string().required()
     }).validate(user);
 }
 

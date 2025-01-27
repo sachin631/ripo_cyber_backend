@@ -1750,9 +1750,6 @@
 									"name": {
 										"type": "string"
 									},
-									"phone_number": {
-										"type": "string"
-									},
 									"profile_pic": {
 										"type": "string",
 										"format": "binary"
@@ -1760,7 +1757,6 @@
 								},
 								"required": [
 									"name",
-									"phone_number",
 									"profile_pic"
 								]
 							}

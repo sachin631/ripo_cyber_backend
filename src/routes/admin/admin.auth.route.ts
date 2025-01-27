@@ -49,9 +49,9 @@ router.get('/profile',verifyAdminToken, async (req: Request | any, res: Response
 });
 
 router.put('/update_profile', upload.single('profile_pic'),verifyAdminToken, async (req: Request | any, res: Response | any) => {
-    const { name, phone_number } = req.body;
+    const { name } = req.body;
     const controller = new admin_auth_controller(req, res);
-    const result: ApiResponse = await controller.updateProfile(name, phone_number, req.file);
+    const result: ApiResponse = await controller.updateProfile(name, req.file);
     return showOutput(res, result, result.code);
 });
 

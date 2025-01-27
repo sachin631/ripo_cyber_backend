@@ -24,7 +24,7 @@ export default class admin_home_controller extends Controller {
     @Security('Bearer')
     @Put('/create_home')
     public async create_home(@Body() request: { description: string }): Promise<ApiResponse> {
-        const validate = await validate_create_home(request);
+        const validate =  validate_create_home(request);
         if (validate.error) {
             return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);
         }
