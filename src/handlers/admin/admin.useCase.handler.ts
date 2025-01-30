@@ -12,13 +12,15 @@ import admin_why_us_model from "../../models/admin/admin.whyUs.model";
 const admin_useCase_handler = {
 
     create_usecase: async (data: any, image: any): Promise<ApiResponse> => {
-        const { name, description, DATA_TYPE } = data;
+        const { name, description, data_type } = data;
         const filePath = image?.path;
         const image_upload: any = await cloudinaryUploaderr(filePath);
+
         const url = image_upload?.url;
         const public_id = image_upload?.public_id;
 
-        if (DATA_TYPE === DATA_TYPE.OUR_SERVICES) {
+        if (data_type == DATA_TYPE.OUR_SERVICES) {
+
             const res = await admin_our_services_model.create({
                 name,
                 description,
@@ -28,12 +30,12 @@ const admin_useCase_handler = {
                 }
             });
             if (!res) {
-                return showResponse(false, admin_usecase.service_create_successfully, null, statusCodes.API_ERROR);
+                return showResponse(false, admin_usecase.service_create_error, null, statusCodes.API_ERROR);
             }
-            return showResponse(true, admin_usecase.service_create_error, res, statusCodes.SUCCESS);
+            return showResponse(true, admin_usecase.service_create_successfully, res, statusCodes.SUCCESS);
         }
 
-        if (DATA_TYPE === DATA_TYPE.WHY_US) {
+        if (data_type === DATA_TYPE.WHY_US) {
             const res = admin_why_us_model.create({
                 name,
                 description,
@@ -48,7 +50,7 @@ const admin_useCase_handler = {
             return showResponse(true, admin_usecase.why_us_create_error, res, statusCodes.SUCCESS);
         }
 
-        if (DATA_TYPE === DATA_TYPE.USE_CASE) {
+        if (data_type === DATA_TYPE.USE_CASE) {
             const res = admin_use_case_model.create({
                 name,
                 description,
@@ -106,7 +108,7 @@ const admin_useCase_handler = {
         }
 
 
-        if (data_type === DATA_TYPE.WHY_US) {
+        if (data_type == DATA_TYPE.WHY_US) {
             const use_cases = await admin_why_us_model.aggregate([
                 {
                     $match: {
@@ -142,7 +144,7 @@ const admin_useCase_handler = {
         }
 
 
-        if (data_type === DATA_TYPE.USE_CASE) {
+        if (data_type == DATA_TYPE.USE_CASE) {
             const use_cases = await admin_use_case_model.aggregate([
                 {
                     $match: {
@@ -177,7 +179,7 @@ const admin_useCase_handler = {
             return showResponse(true, admin_usecase.usecase_fetched_successfully, { totalCount, totalPages, currentPage, use_cases }, statusCodes.SUCCESS);
         }
 
-        return showResponse(false, admin_usecase.usecase_not_found, null, statusCodes.API_ERROR);
+        return showResponse(false, admin_usecase.something_went_wrong, null, statusCodes.API_ERROR);
 
     },
 
@@ -202,7 +204,7 @@ const admin_useCase_handler = {
             }
         }
 
-        if (data_type === DATA_TYPE.OUR_SERVICES) {
+        if (data_type == DATA_TYPE.OUR_SERVICES) {
             const is_usecase_exist = await admin_our_services_model.findOne({ _id: usecase_id, status: { $ne: ADMIN_STATUS.DELETED } });
             if (!is_usecase_exist) {
                 return showResponse(false, admin_usecase.service_not_found, null, statusCodes.API_ERROR);
@@ -214,7 +216,7 @@ const admin_useCase_handler = {
             return showResponse(true, admin_usecase.service_update_success, res, statusCodes.SUCCESS);
         }
 
-        if (data_type === DATA_TYPE.WHY_US) {
+        if (data_type == DATA_TYPE.WHY_US) {
             const is_usecase_exist = await admin_why_us_model.findOne({ _id: usecase_id, status: { $ne: ADMIN_STATUS.DELETED } });
             if (!is_usecase_exist) {
                 return showResponse(false, admin_usecase.why_us_not_found, null, statusCodes.API_ERROR);
@@ -226,7 +228,7 @@ const admin_useCase_handler = {
             return showResponse(true, admin_usecase.why_us_update_success, res, statusCodes.SUCCESS);
         }
 
-        if (data_type === DATA_TYPE.USE_CASE) {
+        if (data_type == DATA_TYPE.USE_CASE) {
             const is_usecase_exist = await admin_use_case_model.findOne({ _id: usecase_id, status: { $ne: ADMIN_STATUS.DELETED } });
             if (!is_usecase_exist) {
                 return showResponse(false, admin_usecase.usecase_not_found, null, statusCodes.API_ERROR);
@@ -243,7 +245,7 @@ const admin_useCase_handler = {
     },
 
     delete_usecase: async (usecase_id: string, data_type: number): Promise<ApiResponse> => {
-        if (data_type === DATA_TYPE.OUR_SERVICES) {
+        if (data_type == DATA_TYPE.OUR_SERVICES) {
             const is_usecase_exist = await admin_our_services_model.findOne({ _id: usecase_id, status: { $ne: ADMIN_STATUS.DELETED } });
             if (!is_usecase_exist) {
                 return showResponse(false, admin_usecase.service_not_found, null, statusCodes.API_ERROR);
@@ -255,7 +257,7 @@ const admin_useCase_handler = {
             return showResponse(true, admin_usecase.service_delete_success, res, statusCodes.SUCCESS);
         }
 
-        if (data_type === DATA_TYPE.WHY_US) {
+        if (data_type == DATA_TYPE.WHY_US) {
             const is_usecase_exist = await admin_why_us_model.findOne({ _id: usecase_id, status: { $ne: ADMIN_STATUS.DELETED } });
             if (!is_usecase_exist) {
                 return showResponse(false, admin_usecase.why_us_not_found, null, statusCodes.API_ERROR);
@@ -267,7 +269,7 @@ const admin_useCase_handler = {
             return showResponse(true, admin_usecase.why_us_delete_success, res, statusCodes.SUCCESS);
         }
 
-        if (data_type === DATA_TYPE.USE_CASE) {
+        if (data_type == DATA_TYPE.USE_CASE) {
             const is_usecase_exist = await admin_use_case_model.findOne({ _id: usecase_id, status: { $ne: ADMIN_STATUS.DELETED } });
             if (!is_usecase_exist) {
                 return showResponse(false, admin_usecase.usecase_not_found, null, statusCodes.API_ERROR);

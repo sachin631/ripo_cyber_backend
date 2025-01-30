@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, FormField, Get, Put, Query, Route, Security, Tags, UploadedFile } from "tsoa";
+import { Body, Controller, Delete, FormField, Get, Post, Put, Query, Route, Security, Tags, UploadedFile } from "tsoa";
 import { Request, Response } from "express";
 import { ApiResponse } from "../../utils/interface.utils";
 import admin_useCase_handler from "../../handlers/admin/admin.useCase.handler";
@@ -24,9 +24,9 @@ export default class admin_useCase_controller extends Controller {
 
 
     @Security('Bearer')
-    @Put('/create_usecase')
+    @Post('/create_usecase')
     public async create_usecase(@FormField() name: string, @FormField() description: string, @FormField() data_type: number, @UploadedFile() image: Express.Multer.File): Promise<ApiResponse> {
-        const request = { name, description,data_type, image, }
+        const request = { name, description,data_type }
         const validate = await validate_create_usecase(request);
         if (validate.error) {
             return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);
@@ -45,7 +45,7 @@ export default class admin_useCase_controller extends Controller {
     @Security('Bearer')
     @Put('/update_usecase')
     public async update_usecase(@FormField() usecase_id: string, @FormField() name: string, @FormField() description: string,@FormField() data_type: number, @UploadedFile() image: Express.Multer.File): Promise<ApiResponse> {
-        const request = { usecase_id, name, description,data_type, image }
+        const request = { usecase_id, name, description,data_type }
         const validate = await validate_update_usecase(request);
         if (validate.error) {
             return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);
@@ -56,8 +56,8 @@ export default class admin_useCase_controller extends Controller {
 
     @Security('Bearer')
     @Delete('/delete_usecase')
-    public async delete_usecase(@FormField() usecase_id: string,@FormField() data_type: number): Promise<ApiResponse> {
-        const validate = await validate_delete_usecase({ usecase_id });
+    public async delete_usecase(@Query() usecase_id: string,@Query() data_type: number): Promise<ApiResponse> {
+        const validate = await validate_delete_usecase({ usecase_id,data_type });
         if (validate.error) {
             return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);
         }

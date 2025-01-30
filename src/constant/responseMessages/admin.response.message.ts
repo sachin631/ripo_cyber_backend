@@ -80,6 +80,7 @@ const admin_usecase = {
     service_delete_success: 'service deleted successfully',
     why_us_delete_error: 'error while deleting why us',
     why_us_delete_success: 'why us deleted successfully',
+    something_went_wrong: 'something went wrong',
 }
 
 const admin_contact_us = {

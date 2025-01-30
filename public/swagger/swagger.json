@@ -660,7 +660,7 @@
 			}
 		},
 		"/admin/useCase/create_usecase": {
-			"put": {
+			"post": {
 				"operationId": "Create_usecase",
 				"responses": {
 					"200": {
@@ -862,29 +862,25 @@
 						"Bearer": []
 					}
 				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"multipart/form-data": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"usecase_id": {
-										"type": "string"
-									},
-									"data_type": {
-										"type": "string"
-									}
-								},
-								"required": [
-									"usecase_id",
-									"data_type"
-								]
-							}
+				"parameters": [
+					{
+						"in": "query",
+						"name": "usecase_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "data_type",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
-				}
+				]
 			}
 		},
 		"/admin/internship/category/create_internship_category": {

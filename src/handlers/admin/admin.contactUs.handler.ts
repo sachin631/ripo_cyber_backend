@@ -8,7 +8,7 @@ import { ADMIN_STATUS } from "../../constant/app.constant";
 import admin_contactUs_model from "../../models/admin/admin.contactUs.model";
 
 
-const admin_useCase_handler = {
+const admin_contactUs_handler = {
 
 
     contactUs_listing: async (page: number = 1, limit: number = 10, search_key: string = ''): Promise<ApiResponse> => {
@@ -72,4 +72,4 @@ const admin_useCase_handler = {
 
 
 }
-export default admin_useCase_handler;
+export default admin_contactUs_handler;
