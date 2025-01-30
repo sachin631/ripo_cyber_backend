@@ -53,9 +53,9 @@ router.delete('/delete_faq', verifyAdminToken, async (req: Request | any, res: R
 //internship_category //name
 
 
-//internshi details //cat_idinternship_name,description, image
-//internship_form // intenship_id, name, email, phone
-//work together //name, email, phone //fb,insta,twitter link
+//internshi details //cat_id,description
+//internship_form // intenship_id, name, email, phone //user side //admin side listing
+//work together //name, email, phone //fb,insta,twitter link //admin side //user side listing
 
 
 

@@ -6,6 +6,7 @@ import cloudinaryUploaderr from "../../middlewares/cloudnary";
 import admin_use_case_model from "../../models/admin/admin.useCase.model";
 import { ADMIN_STATUS } from "../../constant/app.constant";
 import admin_internship_category__model from "../../models/admin/admin.internshipCategory.model";
+import admin_internship_category__details_model from "../../models/admin/admin.internshipDetails.model";
 
 
 const admin_internship_category_handler = {
@@ -88,7 +89,37 @@ const admin_internship_category_handler = {
             return showResponse(false, internship_category.internship_category_delete_error, null, statusCodes.API_ERROR);
         }
         return showResponse(true, internship_category.internship_category_delete_success, res, statusCodes.SUCCESS);
-    }
+    },
+
+    update_internship_details: async (data: any): Promise<ApiResponse> => {
+        const { internship_category_id, description } = data;
+        const is_category_exist = await admin_internship_category__model.findOne({ _id: internship_category_id, status: { $eq: ADMIN_STATUS.ACTIVE } });
+        if (!is_category_exist) {
+            return showResponse(false, internship_category.internship_category_not_found, null, statusCodes.API_ERROR);
+        }
+        const updated_obj: any = {
+            description
+        };
+
+        const res = await admin_internship_category__details_model.findOneAndUpdate({category_id: internship_category_id}, updated_obj, { upsert: true, new: true });
+        if (!res) {
+            return showResponse(false, internship_category.err_while_update_category_details, null, statusCodes.API_ERROR);
+        }
+        return showResponse(true, internship_category.category_details_updated_successfully, res, statusCodes.SUCCESS);
+    },
+
+    get_internship_details: async (internship_category_id: string): Promise<ApiResponse> => {
+        const is_category_exist = await admin_internship_category__model.findOne({ _id: internship_category_id, status: { $eq: ADMIN_STATUS.ACTIVE } });
+        console.log(is_category_exist, 'is_category_exist');
+        if (!is_category_exist) {
+            return showResponse(false, internship_category.internship_category_not_found, null, statusCodes.API_ERROR);
+        }
+        const res = await admin_internship_category__details_model.findOne({category_id:internship_category_id,status:ADMIN_STATUS.ACTIVE});
+        if (!res) {
+            return showResponse(false, internship_category.err_while_fetch_category_details, null, statusCodes.API_ERROR);
+        }
+        return showResponse(true, internship_category.category_details_fetched_successfully, res, statusCodes.SUCCESS);
+    },
 
 
 

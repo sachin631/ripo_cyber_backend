@@ -35,6 +35,20 @@ router.delete('/delete_category', verifyAdminToken, async (req: Request | any, r
     return showOutput(res, result, result.code);
 });
 
+router.put('/update_internship_details', verifyAdminToken, async (req: Request | any, res: Response | any) => {
+    const { internship_category_id, description } = req.body;
+    const controller = new admin_internship_category_controller(req, res);
+    const result: ApiResponse = await controller.update_internship_details({internship_category_id, description});
+    return showOutput(res, result, result.code);
+});
+
+router.get('/get_internship_details', verifyAdminToken, async (req: Request | any, res: Response | any) => {
+    const { internship_category_id } = req.query;
+    const controller = new admin_internship_category_controller(req, res);
+    const result: ApiResponse = await controller.get_internship_details(internship_category_id);
+    return showOutput(res, result, result.code);
+})
+
 
 
 

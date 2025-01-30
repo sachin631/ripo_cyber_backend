@@ -46,42 +46,64 @@ const admin_home = {
     home_content_fetched_err: 'Error while fetched home content ',
 }
 
-const youCareer={
-    you_career_update_success:'You career updated successfully',
-    you_career_update_failed:'You career update failed',
-    you_career_fetched_success:'You career fetched successfully',
-    you_career_fetched_err:'Error while fetched you career ',
+const youCareer = {
+    you_career_update_success: 'You career updated successfully',
+    you_career_update_failed: 'You career update failed',
+    you_career_fetched_success: 'You career fetched successfully',
+    you_career_fetched_err: 'Error while fetched you career ',
 }
 
-const admin_usecase={
-    usecase_create_successfully:'your usecase created successfully',
-    usecase_create_error:'error while creating usecase',
-    usecase_not_found:'invalid useCase, usecase not found',
-    usecase_found_success:'usecase found successfully',
-    usecase_update_success:'usecase updated successfully',
-    usecase_update_error:'error while updating usecase',
-    usecase_delete_success:'usecase deleted successfully',
-    usecase_delete_error:'error while deleting usecase',
+const admin_usecase = {
+    usecase_create_successfully: 'your usecase created successfully',
+    usecase_create_error: 'error while creating usecase',
+    usecase_not_found: 'invalid useCase, usecase not found',
+    usecase_found_success: 'usecase found successfully',
+    usecase_update_success: 'usecase updated successfully',
+    usecase_update_error: 'error while updating usecase',
+    usecase_delete_success: 'usecase deleted successfully',
+    usecase_delete_error: 'error while deleting usecase',
+
+    service_create_successfully: 'your service created successfully',
+    service_create_error: 'error while creating service',
+    why_us_create_successfully: 'your why us created successfully',
+    why_us_create_error: 'error while creating why us',
+    our_service_fetched_successfully: 'our service fetched successfully',
+    why_us_fetched_successfully: 'why us fetched successfully',
+    usecase_fetched_successfully: 'usecase fetched successfully',
+    service_not_found: 'invalid service, service not found',
+    service_update_error: 'error while updating service',
+    service_update_success: 'service updated successfully',
+    why_us_not_found: 'invalid why us, why us not found',
+    why_us_update_error: 'error while updating why us',
+    why_us_update_success: 'why us updated successfully',
+    service_delete_error: 'error while deleting service',
+    service_delete_success: 'service deleted successfully',
+    why_us_delete_error: 'error while deleting why us',
+    why_us_delete_success: 'why us deleted successfully',
 }
 
-const admin_contact_us={
-    contact_us_retrived_success:'contact us retrieved successfully',
-    contact_us_retrived_error:'error while retrieving contact us',
-    contact_us_delete_success:'contact us deleted successfully',
-    contact_us_delete_error:'error while deleting contact us',
-    contact_us_not_found:'invalid contact us, contact us not found',
+const admin_contact_us = {
+    contact_us_retrived_success: 'contact us retrieved successfully',
+    contact_us_retrived_error: 'error while retrieving contact us',
+    contact_us_delete_success: 'contact us deleted successfully',
+    contact_us_delete_error: 'error while deleting contact us',
+    contact_us_not_found: 'invalid contact us, contact us not found',
 }
-const internship_category={
-    internship_category_create_success:'internship category created successfully',
-    internship_category_create_error:'error while creating internship category',
-    internship_category_update_success:'internship category updated successfully',
-    internship_category_update_error:'error while updating internship category',
-    internship_category_delete_success:'internship category deleted successfully',
-    internship_category_delete_error:'error while deleting internship category',
-    intership_category_already_exist:'internship category already exist',
-    internship_category_fetched_successfully:'internship category fetched successfully',
-    internship_category_fetched_error:'error while fetching internship category',
-    internship_category_not_found:'invalid internship category, internship category not found',
+const internship_category = {
+    internship_category_create_success: 'internship category created successfully',
+    internship_category_create_error: 'error while creating internship category',
+    internship_category_update_success: 'internship category updated successfully',
+    internship_category_update_error: 'error while updating internship category',
+    internship_category_delete_success: 'internship category deleted successfully',
+    internship_category_delete_error: 'error while deleting internship category',
+    intership_category_already_exist: 'internship category already exist',
+    internship_category_fetched_successfully: 'internship category fetched successfully',
+    internship_category_fetched_error: 'error while fetching internship category',
+    internship_category_not_found: 'invalid internship category, internship category not found',
+    err_while_update_category_details: 'error while updating internship category details',
+    category_details_updated_successfully: 'category details updated successfully',
+    err_while_fetch_category_details: 'error while fetching internship category details',
+    category_details_fetched_successfully: 'category details fetched successfully'
 }
 
-export { adminAuth, admin_user, admin_common, admin_home,youCareer,admin_usecase,admin_contact_us,internship_category }
+export { adminAuth, admin_user, admin_common, admin_home, youCareer, admin_usecase, admin_contact_us, internship_category }

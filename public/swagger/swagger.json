@@ -696,6 +696,9 @@
 									"description": {
 										"type": "string"
 									},
+									"data_type": {
+										"type": "string"
+									},
 									"image": {
 										"type": "string",
 										"format": "binary"
@@ -704,6 +707,7 @@
 								"required": [
 									"name",
 									"description",
+									"data_type",
 									"image"
 								]
 							}
@@ -761,6 +765,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"in": "query",
+						"name": "data_type",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
 					}
 				]
 			}
@@ -805,6 +818,9 @@
 									"description": {
 										"type": "string"
 									},
+									"data_type": {
+										"type": "string"
+									},
 									"image": {
 										"type": "string",
 										"format": "binary"
@@ -814,6 +830,7 @@
 									"usecase_id",
 									"name",
 									"description",
+									"data_type",
 									"image"
 								]
 							}
@@ -855,10 +872,14 @@
 								"properties": {
 									"usecase_id": {
 										"type": "string"
+									},
+									"data_type": {
+										"type": "string"
 									}
 								},
 								"required": [
-									"usecase_id"
+									"usecase_id",
+									"data_type"
 								]
 							}
 						}
@@ -1053,6 +1074,89 @@
 						}
 					}
 				}
+			}
+		},
+		"/admin/internship/category/update_internship_details": {
+			"put": {
+				"operationId": "Update_internship_details",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin internship category routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"description": {
+										"type": "string"
+									},
+									"internship_category_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"description",
+									"internship_category_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/internship/category/get_internship_details": {
+			"get": {
+				"operationId": "Get_internship_details",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin internship category routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "internship_category_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/admin/home/create_home": {

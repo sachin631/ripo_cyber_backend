@@ -14,4 +14,11 @@ const ADMIN_STATUS:any={
     DELETED:3
 }
 
-export {Role,USER_STATUS,ADMIN_STATUS}
+const DATA_TYPE={
+    OUR_SERVICES:1,
+    WHY_US:2,
+    USE_CASE:3,
+
+}
+
+export {Role,USER_STATUS,ADMIN_STATUS,DATA_TYPE}

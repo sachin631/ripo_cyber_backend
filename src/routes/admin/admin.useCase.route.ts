@@ -8,30 +8,30 @@ const router = express.Router();
 
 
 router.post('/create_usecase', upload.single('image'), verifyAdminToken, async (req: Request | any, res: Response | any) => {
-    const { name, description } = req.body;
+    const { name, description ,data_type} = req.body;
     const controller = new admin_useCase_controller(req, res);
-    const result: ApiResponse = await controller.create_usecase(name, description, req.file);
+    const result: ApiResponse = await controller.create_usecase(name, description,data_type, req.file);
     return showOutput(res, result, result.code);
 });
 
 router.get('/usecase_listing', verifyAdminToken, async (req: Request | any, res: Response | any) => {
-    const { page, limit, search_key } = req.query;
+    const { page, limit, search_key,data_type } = req.query;
     const controller = new admin_useCase_controller(req, res);
-    const result: ApiResponse = await controller.usecase_listing(page, limit, search_key);
+    const result: ApiResponse = await controller.usecase_listing(page, limit, search_key,data_type);
     return showOutput(res, result, result.code);
 });
 
 router.put('/update_usecase', upload.single('image'), verifyAdminToken, async (req: Request | any, res: Response | any) => {
-    const { usecase_id, name, description } = req.body;
+    const { usecase_id, name, description,data_type } = req.body;
     const controller = new admin_useCase_controller(req, res);
-    const result: ApiResponse = await controller.update_usecase(usecase_id, name, description, req.file);
+    const result: ApiResponse = await controller.update_usecase(usecase_id, name, description,data_type, req.file);
     return showOutput(res, result, result.code);
 });
 
 router.delete('/delete_usecase', verifyAdminToken, async (req: Request | any, res: Response | any) => {
-    const { usecase_id } = req.query;
+    const { usecase_id,data_type } = req.query;
     const controller = new admin_useCase_controller(req, res);
-    const result: ApiResponse = await controller.delete_usecase(usecase_id);
+    const result: ApiResponse = await controller.delete_usecase(usecase_id,data_type);
     return showOutput(res, result, result.code);
 });
 

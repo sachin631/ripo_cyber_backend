@@ -25,43 +25,43 @@ export default class admin_useCase_controller extends Controller {
 
     @Security('Bearer')
     @Put('/create_usecase')
-    public async create_usecase(@FormField() name:string,@FormField() description:string,@UploadedFile()image:Express.Multer.File): Promise<ApiResponse> {
-        const request={name,description,image}
+    public async create_usecase(@FormField() name: string, @FormField() description: string, @FormField() data_type: number, @UploadedFile() image: Express.Multer.File): Promise<ApiResponse> {
+        const request = { name, description,data_type, image, }
         const validate = await validate_create_usecase(request);
         if (validate.error) {
             return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);
         }
-        const res = admin_useCase_handler.create_usecase(request,image);
+        const res = admin_useCase_handler.create_usecase(request, image);
         return res;
     }
 
     @Security('Bearer')
     @Get('/usecase_listing')
-    public async usecase_listing(@Query() page?: number,@Query() limit?: number,@Query() search_key?: string): Promise<ApiResponse> {
-        const res = admin_useCase_handler.usecase_listing(page, limit, search_key);
+    public async usecase_listing(@Query() page?: number, @Query() limit?: number, @Query() search_key?: string,@Query() data_type?: number): Promise<ApiResponse> {
+        const res = admin_useCase_handler.usecase_listing(page, limit, search_key,data_type);
         return res;
     }
 
     @Security('Bearer')
     @Put('/update_usecase')
-    public async update_usecase(@FormField() usecase_id:string,@FormField() name:string,@FormField() description:string,@UploadedFile()image:Express.Multer.File): Promise<ApiResponse> {
-        const request={usecase_id,name,description,image}
+    public async update_usecase(@FormField() usecase_id: string, @FormField() name: string, @FormField() description: string,@FormField() data_type: number, @UploadedFile() image: Express.Multer.File): Promise<ApiResponse> {
+        const request = { usecase_id, name, description,data_type, image }
         const validate = await validate_update_usecase(request);
         if (validate.error) {
             return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);
         }
-        const res = admin_useCase_handler.update_usecase(request,image);
+        const res = admin_useCase_handler.update_usecase(request, image);
         return res;
     }
 
     @Security('Bearer')
     @Delete('/delete_usecase')
-    public async delete_usecase(@FormField() usecase_id:string): Promise<ApiResponse> {
-        const validate = await validate_delete_usecase({usecase_id});
+    public async delete_usecase(@FormField() usecase_id: string,@FormField() data_type: number): Promise<ApiResponse> {
+        const validate = await validate_delete_usecase({ usecase_id });
         if (validate.error) {
             return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);
         }
-        const res = admin_useCase_handler.delete_usecase(usecase_id);
+        const res = admin_useCase_handler.delete_usecase(usecase_id,data_type);
         return res;
     }
 

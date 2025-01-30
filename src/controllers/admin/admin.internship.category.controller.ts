@@ -7,7 +7,7 @@ import statusCodes from "../../constant/statusCodes";
 import { validate_create_home } from "../../validator/admin/admin.home.validator";
 import multer from "multer";
 import { validate_create_usecase, validate_delete_usecase, validate_update_usecase } from "../../validator/admin/admin.usecase.validator";
-import { validate_create_internship_category, validate_delete_category, validate_update_internship_category } from "../../validator/admin/admin.internship.category.validator";
+import { validate_create_internship_category, validate_delete_category, validate_get_internship_details, validate_update_internship_category, validate_update_internship_details } from "../../validator/admin/admin.internship.category.validator";
 
 @Tags('admin internship category routes')
 @Route('/admin/internship/category')
@@ -64,5 +64,26 @@ export default class admin_internship_category_controller extends Controller {
         return res;
     }
 
+    @Security('Bearer')
+    @Put('/update_internship_details')
+    public async update_internship_details(@Body() request:{internship_category_id:string,description:string}): Promise<ApiResponse> {
+        const validate = await validate_update_internship_details(request);
+        if (validate.error) {
+            return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);
+        }
+        const res = admin_internship_category_handler.update_internship_details(request);
+        return res;
+    }
+
+    @Security('Bearer')
+    @Get('/get_internship_details')
+    public async get_internship_details(@Query() internship_category_id:string): Promise<ApiResponse> {
+        const validate= validate_get_internship_details({internship_category_id});
+        if(validate.error){
+            return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);   
+        }
+        const res = admin_internship_category_handler.get_internship_details(internship_category_id);
+        return res;
+    }
 
 }
