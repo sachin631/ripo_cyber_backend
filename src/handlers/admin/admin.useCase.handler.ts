@@ -13,6 +13,7 @@ const admin_useCase_handler = {
 
     create_usecase: async (data: any, image: any): Promise<ApiResponse> => {
         const { name, description, data_type } = data;
+        console.log(data);
         const filePath = image?.path;
         const image_upload: any = await cloudinaryUploaderr(filePath);
 
@@ -20,7 +21,7 @@ const admin_useCase_handler = {
         const public_id = image_upload?.public_id;
 
         if (data_type == DATA_TYPE.OUR_SERVICES) {
-
+console.log('our service')
             const res = await admin_our_services_model.create({
                 name,
                 description,
@@ -35,8 +36,9 @@ const admin_useCase_handler = {
             return showResponse(true, admin_usecase.service_create_successfully, res, statusCodes.SUCCESS);
         }
 
-        if (data_type === DATA_TYPE.WHY_US) {
-            const res = admin_why_us_model.create({
+        if (data_type == DATA_TYPE.WHY_US) {
+            console.log('why us')
+            const res = await admin_why_us_model.create({
                 name,
                 description,
                 image: {
@@ -45,13 +47,14 @@ const admin_useCase_handler = {
                 }
             });
             if (!res) {
-                return showResponse(false, admin_usecase.why_us_create_successfully, null, statusCodes.API_ERROR);
+                return showResponse(false, admin_usecase.why_us_create_error, null, statusCodes.API_ERROR);
             }
-            return showResponse(true, admin_usecase.why_us_create_error, res, statusCodes.SUCCESS);
+            return showResponse(true, admin_usecase.why_us_create_successfully, res, statusCodes.SUCCESS);
         }
 
-        if (data_type === DATA_TYPE.USE_CASE) {
-            const res = admin_use_case_model.create({
+        if (data_type == DATA_TYPE.USE_CASE) {
+            console.log('yes usecase')
+            const res = await admin_use_case_model.create({
                 name,
                 description,
                 image: {
@@ -60,12 +63,12 @@ const admin_useCase_handler = {
                 }
             });
             if (!res) {
-                return showResponse(false, admin_usecase.usecase_create_successfully, null, statusCodes.API_ERROR);
+                return showResponse(false, admin_usecase.usecase_create_error, null, statusCodes.API_ERROR);
             }
-            return showResponse(true, admin_usecase.usecase_create_error, res, statusCodes.SUCCESS);
+            return showResponse(true, admin_usecase.usecase_create_successfully, res, statusCodes.SUCCESS);
         }
 
-        return showResponse(false, admin_usecase.usecase_create_error, null, statusCodes.API_ERROR);
+        return showResponse(false, admin_usecase.something_went_wrong, null, statusCodes.API_ERROR);
     },
 
     usecase_listing: async (page: number = 1, limit: number = 10, search_key: string = '', data_type?: any): Promise<ApiResponse> => {

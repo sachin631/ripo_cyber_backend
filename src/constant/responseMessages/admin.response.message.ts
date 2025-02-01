@@ -56,6 +56,7 @@ const youCareer = {
 const admin_usecase = {
     usecase_create_successfully: 'your usecase created successfully',
     usecase_create_error: 'error while creating usecase',
+    something_went_wrong: 'something went wrong',
     usecase_not_found: 'invalid useCase, usecase not found',
     usecase_found_success: 'usecase found successfully',
     usecase_update_success: 'usecase updated successfully',
@@ -80,7 +81,6 @@ const admin_usecase = {
     service_delete_success: 'service deleted successfully',
     why_us_delete_error: 'error while deleting why us',
     why_us_delete_success: 'why us deleted successfully',
-    something_went_wrong: 'something went wrong',
 }
 
 const admin_contact_us = {
