@@ -1,4 +1,4 @@
-import { Body, Controller, FormField, Get, Post, Put, Route, Security, Tags, UploadedFile } from "tsoa";
+import { Body, Controller, FormField, Get, Post, Put, Query, Route, Security, Tags, UploadedFile } from "tsoa";
 import { Request, Response } from "express";
 import { ApiResponse } from "../../utils/interface.utils";
 import user_common_handler from "../../handlers/user/user.common.handler";
@@ -26,6 +26,12 @@ export default class user_common_controller extends Controller {
             return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR)
         }
         const res = user_common_handler.contact_us(request);
+        return res;
+    }
+
+    @Get('/usecase_listing')
+    public async usecase_listing(@Query() data_type?: number): Promise<ApiResponse> {
+        const res = user_common_handler.usecase_listing(data_type);
         return res;
     }
 

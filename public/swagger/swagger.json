@@ -103,6 +103,38 @@
 				}
 			}
 		},
+		"/user/common/usecase_listing": {
+			"get": {
+				"operationId": "Usecase_listing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"user common routes"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "data_type",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/user/auth/register": {
 			"post": {
 				"operationId": "Register",
@@ -1217,11 +1249,7 @@
 				"tags": [
 					"admin home routes"
 				],
-				"security": [
-					{
-						"Bearer": []
-					}
-				],
+				"security": [],
 				"parameters": []
 			}
 		},
@@ -1422,11 +1450,7 @@
 				"tags": [
 					"admin common routes"
 				],
-				"security": [
-					{
-						"Bearer": []
-					}
-				],
+				"security": [],
 				"parameters": []
 			}
 		},
@@ -1579,6 +1603,41 @@
 						"Bearer": []
 					}
 				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "question_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/admin/common/edit_work_together": {
+			"put": {
+				"operationId": "Edit_work_together",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -1586,18 +1645,64 @@
 						"application/json": {
 							"schema": {
 								"properties": {
-									"question_id": {
+									"twitter_link": {
+										"type": "string"
+									},
+									"insta_link": {
+										"type": "string"
+									},
+									"fb_link": {
+										"type": "string"
+									},
+									"phone": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									},
+									"name": {
 										"type": "string"
 									}
 								},
 								"required": [
-									"question_id"
+									"twitter_link",
+									"insta_link",
+									"fb_link",
+									"phone",
+									"email",
+									"name"
 								],
 								"type": "object"
 							}
 						}
 					}
 				}
+			}
+		},
+		"/admin/common/work_together_detail": {
+			"get": {
+				"operationId": "Work_together_detail",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
 			}
 		},
 		"/admin/auth/login": {

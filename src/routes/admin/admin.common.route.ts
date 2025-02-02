@@ -13,7 +13,7 @@ router.put('/privacy_terms_about', verifyAdminToken, async (req: Request | any, 
     return showOutput(res, result, result.code);
 });
 
-router.get('/privacy_terms_about_detail', verifyAdminToken, async (req: Request | any, res: Response | any) => {
+router.get('/privacy_terms_about_detail', async (req: Request | any, res: Response | any) => {
     const controller = new admin_common_controller(req, res);
     const result: ApiResponse = await controller.privacy_terms_about_detail();
     return showOutput(res, result, result.code);
@@ -40,20 +40,33 @@ router.put('/update_faq', verifyAdminToken, async (req: Request | any, res: Resp
 });
 
 router.delete('/delete_faq', verifyAdminToken, async (req: Request | any, res: Response | any) => {
-    const { question_id } = req.body;
+    const { question_id } = req.query;
     const controller = new admin_common_controller(req, res);
-    const result: ApiResponse = await controller.delete_faq({ question_id });
+    const result: ApiResponse = await controller.delete_faq( question_id );
     return showOutput(res, result, result.code);
 });
+
+router.put('/edit_work_together', verifyAdminToken, async (req: Request | any, res: Response | any) => {
+    const { name, email, phone, fb_link, insta_link, twitter_link } = req.body;
+    const controller = new admin_common_controller(req, res);
+    const result: ApiResponse = await controller.edit_work_together({ name, email, phone, fb_link, insta_link, twitter_link });
+    return showOutput(res, result, result.code);
+});
+
+router.get('/work_together_detail', verifyAdminToken, async (req: Request | any, res: Response | any) => {
+    const controller = new admin_common_controller(req, res);
+    const result: ApiResponse = await controller.work_together_detail();
+    return showOutput(res, result, result.code);
+})
 
 //home //discription //admin done
 //your carer //dis  // admin done
 //testiminial,usecase // name ,image,dis
 //contact us //name, email, phone, message
 //internship_category //name
-
-
 //internshi details //cat_id,description
+
+
 //internship_form // intenship_id, name, email, phone //user side //admin side listing
 //work together //name, email, phone //fb,insta,twitter link //admin side //user side listing
 

@@ -37,6 +37,10 @@ const admin_common = {
     question_update_success: 'Question update successfully',
     delete_faq_success: 'faq deleted successfully',
     delete_faq_error: 'Error while deleting faq',
+    workTogether_update_err: 'Work together content update error',
+    workTogether_update_success: 'Work together content update successfully',
+    workTogether_fetched_err: 'Error while fetched work together content ',
+    workTogether_fetched_success: 'Work together content fetched successfully',
 }
 
 const admin_home = {

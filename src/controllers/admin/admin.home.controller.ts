@@ -32,7 +32,6 @@ export default class admin_home_controller extends Controller {
         return res;
     }
 
-    @Security('Bearer')
     @Get('/home_detail')
     public async home_detail(): Promise<ApiResponse> {
         const res = admin_home_handler.home_detail();

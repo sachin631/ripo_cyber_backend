@@ -13,7 +13,7 @@ router.put('/create_home', verifyAdminToken, async (req: Request | any, res: Res
     return showOutput(res, result, result.code);
 });
 
-router.get('/home_detail', verifyAdminToken, async (req: Request | any, res: Response | any) => {
+router.get('/home_detail', async (req: Request | any, res: Response | any) => {
     const controller = new admin_home_controller(req, res);
     const result: ApiResponse = await controller.home_detail();
     return showOutput(res, result, result.code);

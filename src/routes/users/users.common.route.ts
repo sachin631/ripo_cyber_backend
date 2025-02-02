@@ -11,5 +11,12 @@ router.post('/contact_us', async (req: Request | any, res: Response | any) => {
     return showOutput(res, result, result.code);
 });
 
+router.get('/usecase_listing', async (req: Request | any, res: Response | any) => {
+    const {data_type } = req.query;
+    const controller = new user_common_controller(req, res);
+    const result: ApiResponse = await controller.usecase_listing(data_type);
+    return showOutput(res, result, result.code);
+});
+
 
 export default router;
