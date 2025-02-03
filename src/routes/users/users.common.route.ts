@@ -18,5 +18,53 @@ router.get('/usecase_listing', async (req: Request | any, res: Response | any) =
     return showOutput(res, result, result.code);
 });
 
+router.get('/privacy_terms_about_detail', async (req: Request | any, res: Response | any) => {
+    const controller = new user_common_controller(req, res);
+    const result: ApiResponse = await controller.privacy_terms_about_detail();
+    return showOutput(res, result, result.code);
+});
+
+router.get('/faq_listing', async (req: Request | any, res: Response | any) => {
+    const controller = new user_common_controller(req, res);
+    const result: ApiResponse = await controller.faq_listing();
+    return showOutput(res, result, result.code);
+});
+
+router.get('/work_together_detail', async (req: Request | any, res: Response | any) => {
+    const controller = new user_common_controller(req, res);
+    const result: ApiResponse = await controller.work_together_detail();
+    return showOutput(res, result, result.code);
+})
+
+//internship
+router.get('/internship_category_listing', async (req: Request | any, res: Response | any) => {
+    
+    const controller = new user_common_controller(req, res);
+    const result: ApiResponse = await controller.internship_category_listing();
+    return showOutput(res, result, result.code);
+});
+
+router.get('/get_internship_details', async (req: Request | any, res: Response | any) => {
+    const { internship_category_id } = req.query;
+    const controller = new user_common_controller(req, res);
+    const result: ApiResponse = await controller.get_internship_details(internship_category_id);
+    return showOutput(res, result, result.code);
+})
+
+router.get('/detail', async (req: Request | any, res: Response | any) => {
+    const {user_id}=req.query;
+    const controller = new user_common_controller(req, res);
+    const result: ApiResponse = await controller.detail(user_id);
+    return showOutput(res, result, result.code);
+});
+
+router.get('/career_detail', async (req: Request | any, res: Response | any) => {
+    const controller = new user_common_controller(req, res);
+    const result: ApiResponse = await controller.career_detail();
+    return showOutput(res, result, result.code);
+});
+
+
+
 
 export default router;
