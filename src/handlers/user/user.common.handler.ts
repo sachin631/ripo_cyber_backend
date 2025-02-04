@@ -9,6 +9,7 @@ import admin_internship_category__details_model from "../../models/admin/admin.i
 import admin_our_services_model from "../../models/admin/admin.ourServices.model";
 import admin_use_case_model from "../../models/admin/admin.useCase.model";
 import admin_why_us_model from "../../models/admin/admin.whyUs.model";
+import admin_work_together_model from "../../models/admin/admin.workTogether.model";
 import admin_your_carrer_model from "../../models/admin/admin.youCarrer.model";
 import user_model from "../../models/user/user.auth.models";
 import { ApiResponse } from "../../utils/interface.utils"
@@ -94,7 +95,7 @@ const user_common_handler = {
     },
 
     work_together_detail: async (): Promise<ApiResponse> => {
-        const res = await admin_common_model.findOne({});
+        const res = await admin_work_together_model.findOne({});
         if (!res) {
             return showResponse(false, admin_common.workTogether_fetched_err, null, statusCodes.API_ERROR);
         }

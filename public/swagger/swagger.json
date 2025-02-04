@@ -175,11 +175,7 @@
 				"tags": [
 					"user common routes"
 				],
-				"security": [
-					{
-						"Bearer": []
-					}
-				],
+				"security": [],
 				"parameters": []
 			}
 		},
@@ -201,11 +197,7 @@
 				"tags": [
 					"user common routes"
 				],
-				"security": [
-					{
-						"Bearer": []
-					}
-				],
+				"security": [],
 				"parameters": []
 			}
 		},

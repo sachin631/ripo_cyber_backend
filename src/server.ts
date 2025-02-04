@@ -16,7 +16,7 @@ let PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors(
     {
-        origin: 'http://localhost:3000', // Frontend URLs
+        origin: ['http://localhost:3000','http://localhost:3002'], // Frontend URLs
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
         credentials: true, // Allow cookies or authentication headers
     }
