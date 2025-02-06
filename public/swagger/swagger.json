@@ -311,6 +311,62 @@
 				"parameters": []
 			}
 		},
+		"/user/common/apply_internship": {
+			"post": {
+				"operationId": "Apply_internship",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"user common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"phone": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									},
+									"name": {
+										"type": "string"
+									},
+									"internship_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"phone",
+									"email",
+									"name",
+									"internship_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/user/auth/register": {
 			"post": {
 				"operationId": "Register",
@@ -1858,6 +1914,32 @@
 		"/admin/common/work_together_detail": {
 			"get": {
 				"operationId": "Work_together_detail",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"admin common routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/admin/common/internship_applied_listing": {
+			"get": {
+				"operationId": "Internship_applied_listing",
 				"responses": {
 					"200": {
 						"description": "Ok",

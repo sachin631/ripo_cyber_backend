@@ -41,6 +41,8 @@ const admin_common = {
     workTogether_update_success: 'Work together content update successfully',
     workTogether_fetched_err: 'Error while fetched work together content ',
     workTogether_fetched_success: 'Work together content fetched successfully',
+    internship_fetched_err: 'Error while fetched internship content ',
+    internship_fetched_success: 'Internship content fetched successfully',
 }
 
 const admin_home = {

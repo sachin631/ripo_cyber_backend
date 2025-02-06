@@ -6,7 +6,7 @@ import { showResponse } from "../../utils/response.utils";
 import statusCodes from "../../constant/statusCodes";
 import { validate_contact_us } from "../../validator/user/user.common.validator";
 import { validate_get_internship_details } from "../../validator/admin/admin.internship.category.validator";
-import { validate_user_detail } from "../../validator/admin/admin.user.validator";
+import { validate_apply_internship, validate_user_detail } from "../../validator/admin/admin.user.validator";
 
 @Tags('user common routes')
 @Route('/user/common')
@@ -86,6 +86,17 @@ export default class user_common_controller extends Controller {
     @Get('/career_detail')
     public async career_detail(): Promise<ApiResponse> {
         const res = user_common_handler.career_detail();
+        return res;
+    }
+
+    @Security('Bearer')
+    @Post('/apply_internship')
+    public async apply_internship(@Body() request: { internship_id: string, name: string, email: string, phone: string }): Promise<ApiResponse> {
+       const validate=validate_apply_internship(request);
+        if(validate.error){
+            return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);   
+        }
+        const res = user_common_handler.apply_internship(request,this.userId);
         return res;
     }
 

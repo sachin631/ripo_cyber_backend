@@ -57,6 +57,12 @@ router.get('/work_together_detail', verifyAdminToken, async (req: Request | any,
     const controller = new admin_common_controller(req, res);
     const result: ApiResponse = await controller.work_together_detail();
     return showOutput(res, result, result.code);
+});
+
+router.get('/internship_applied_listing', verifyAdminToken, async (req: Request | any, res: Response | any) => {
+    const controller = new admin_common_controller(req, res);
+    const result: ApiResponse = await controller.internship_applied_listing();
+    return showOutput(res, result, result.code);
 })
 
 //home //discription //admin done
@@ -65,10 +71,10 @@ router.get('/work_together_detail', verifyAdminToken, async (req: Request | any,
 //contact us //name, email, phone, message
 //internship_category //name
 //internshi details //cat_id,description
+//work together //name, email, phone //fb,insta,twitter link //admin side //user side listing
 
 
 //internship_form // intenship_id, name, email, phone //user side //admin side listing
-//work together //name, email, phone //fb,insta,twitter link //admin side //user side listing
 
 
 

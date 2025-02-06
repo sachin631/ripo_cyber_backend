@@ -6,6 +6,7 @@ import admin_common_model from "../../models/admin/admin.common.model";
 import admin_faq_model from "../../models/admin/admin.faq.model";
 import { ADMIN_STATUS } from "../../constant/app.constant";
 import admin_work_together_model from "../../models/admin/admin.workTogether.model";
+import user_internship_form_model from "../../models/user/user.internshipForm.model";
 
 
 const admin_common_handler = {
@@ -54,7 +55,7 @@ const admin_common_handler = {
     },
 
     faq_listing: async (): Promise<ApiResponse> => {
-        const faq = await admin_faq_model.find({status:ADMIN_STATUS.ACTIVE});
+        const faq = await admin_faq_model.find({ status: ADMIN_STATUS.ACTIVE });
         if (faq.length == 0) {
             return showResponse(false, admin_common.question_not_found, faq, statusCodes.API_ERROR);
         }
@@ -125,9 +126,17 @@ const admin_common_handler = {
         }
         return showResponse(true, admin_common.workTogether_fetched_success, res, statusCodes.SUCCESS);
     },
+
+    internship_applied_listing: async (): Promise<ApiResponse> => {
+        const res = await user_internship_form_model.find({ status: ADMIN_STATUS.ACTIVE }, { $sort: { createdAt: -1 } });
+        if (!res) {
+            return showResponse(false, admin_common.internship_fetched_err, null, statusCodes.API_ERROR);
+        }
+        return showResponse(true, admin_common.internship_fetched_success, res, statusCodes.SUCCESS);
+    },
     //
 
-    
+
 
 }
 export default admin_common_handler;

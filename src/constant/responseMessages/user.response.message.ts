@@ -20,6 +20,9 @@ const userAuth={
 const user_common={
     contact_us_failed:'contact us failed',
     contact_us_success:'contact us successfully',
+    internship_not_found:'internship not found',
+    internship_apply_success:'internship apply successfully',
+    internship_apply_failed:'internship apply failed',
 }
 
 export  {userAuth,user_common}

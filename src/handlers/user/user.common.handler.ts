@@ -12,6 +12,7 @@ import admin_why_us_model from "../../models/admin/admin.whyUs.model";
 import admin_work_together_model from "../../models/admin/admin.workTogether.model";
 import admin_your_carrer_model from "../../models/admin/admin.youCarrer.model";
 import user_model from "../../models/user/user.auth.models";
+import user_internship_form_model from "../../models/user/user.internshipForm.model";
 import { ApiResponse } from "../../utils/interface.utils"
 import { showResponse } from "../../utils/response.utils";
 
@@ -146,6 +147,30 @@ const user_common_handler = {
         }
         return showResponse(true, youCareer.you_career_fetched_success, res, statusCodes.SUCCESS);
     },
+
+    apply_internship: async (data: any, user_id: any): Promise<ApiResponse> => {
+        const { internship_id, name, email, phone } = data;
+        const res = await admin_internship_category__model.findOne({ _id: internship_id, status: { $eq: USER_STATUS.ACTIVE } });
+        console.log(res, 'res');
+        if (!res) {
+            return showResponse(false, user_common.internship_not_found, null, statusCodes.API_ERROR);
+        }
+        const internship_form = await user_internship_form_model.create({
+            internship_id: internship_id,
+            name: name,
+            email: email,
+            phone: phone,
+            status: USER_STATUS.ACTIVE,
+            user_id: user_id
+        });
+        if (!internship_form) {
+            return showResponse(false, user_common.internship_apply_failed, null, statusCodes.API_ERROR);
+        }
+        return showResponse(true, user_common.internship_apply_success, null, statusCodes.SUCCESS);
+    },
+
+
+
 
 
 }

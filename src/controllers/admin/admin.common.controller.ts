@@ -87,6 +87,13 @@ export default class admin_common_controller extends Controller {
         return res;
     }
 
+    @Security('Bearer')
+    @Get('/internship_applied_listing')
+    public async internship_applied_listing(): Promise<ApiResponse> {
+        const res = admin_common_handler.internship_applied_listing();
+        return res;
+    }
+
 
 //
    
