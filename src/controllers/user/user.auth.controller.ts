@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { ApiResponse } from "../../utils/interface.utils";
 import user_auth_handler from "../../handlers/user/user.auth.handler";
 import { showResponse } from "../../utils/response.utils";
-import { validate_change_password, validate_forgotPassword, validate_login, validate_register, validate_resendOtp, validate_update_profile, validate_verifyOtp } from "../../validator/user/user.auth.validator";
+import { validate_change_password, validate_forgotPassword, validate_login, validate_new_password, validate_register, validate_resendOtp, validate_update_profile, validate_verifyOtp } from "../../validator/user/user.auth.validator";
 import statusCodes from "../../constant/statusCodes";
 
 @Tags('user auth routes')
@@ -99,9 +99,19 @@ export default class user_auth_controller extends Controller {
 
     @Security('Bearer')
     @Put('/change_password')
-    public async changePassword(@Body() request:{old_password:string,new_password:string}): Promise<ApiResponse> {
+    public async changePassword(@Body() request: { old_password: string, new_password: string }): Promise<ApiResponse> {
         const validate = validate_change_password(request);
         const res = user_auth_handler.changePassword(request, this.userId);
+        return res;
+    }
+
+    @Put('/new_password')
+    public async newPassword(@Body() request: { email: string, password: string }): Promise<ApiResponse> {
+        const validate = validate_new_password(request);
+        if (validate.error) {
+            return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR);
+        }
+        const res = user_auth_handler.newPassword(request);
         return res;
     }
 

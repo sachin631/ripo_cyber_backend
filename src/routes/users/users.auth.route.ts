@@ -69,6 +69,13 @@ router.put('/change_password',verifyUserToken, async (req: Request | any, res: R
     return showOutput(res, result, result.code);
 });
 
+router.put('/new_password', async (req: Request | any, res: Response | any) => {
+    const {email, password } = req.body;
+    const controller = new user_auth_controller(req, res);
+    const result: ApiResponse = await controller.newPassword({email, password });
+    return showOutput(res, result, result.code);
+});
+
 
 
 

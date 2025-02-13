@@ -49,3 +49,10 @@ export const validate_change_password=(user:any)=>{
         new_password: Joi.string().required()
     }).validate(user);
 }
+
+export const validate_new_password=(user:any)=>{
+    return Joi.object({
+        email: Joi.string().required(),
+        password: Joi.string().required()
+    }).validate(user);
+}

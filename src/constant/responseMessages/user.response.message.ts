@@ -15,6 +15,7 @@ const userAuth={
     user_not_found:'user not found',
     user_found_success:'user found successfully',
     password_update_success:'password updated successfully',
+    otp_verify_success:'otp verified successfully'
 }
 
 const user_common={

@@ -128,7 +128,7 @@ const user_auth_handler = {
         if (!new_user) {
             return showResponse(false, userAuth.invalid_otp, null, statusCodes.API_ERROR);
         }
-        return showResponse(true, userAuth.profile_update_failed, null, statusCodes.SUCCESS);
+        return showResponse(true, userAuth.otp_verify_success, null, statusCodes.SUCCESS);
     },
 
     getProfile: async (user_id: any): Promise<ApiResponse> => {
@@ -189,6 +189,20 @@ const user_auth_handler = {
         }
         return showResponse(true, userAuth.password_update_success, null, statusCodes.SUCCESS);
     },
+
+    newPassword: async (data: any): Promise<ApiResponse> => {
+        const { email, password } = data;
+        const user = await user_model.findOne({ email: email, status: USER_STATUS.ACTIVE });
+        if (!user) {
+            return showResponse(false, userAuth.user_not_found, null, statusCodes.API_ERROR);
+        }
+        const hashed = await hashPassword(password);
+        const updated_user = await user_model.findOneAndUpdate({ email: email }, { password: hashed }, { new: true });
+        if (!updated_user) {
+            return showResponse(false, userAuth.profile_update_failed, null, statusCodes.API_ERROR);
+        }
+        return showResponse(true, userAuth.password_update_success, null, statusCodes.SUCCESS);
+    }
 
 }
 
