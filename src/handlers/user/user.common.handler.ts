@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { ADMIN_STATUS, DATA_TYPE, USER_STATUS } from "../../constant/app.constant";
 import { admin_common, admin_usecase, admin_user, internship_category, youCareer } from "../../constant/responseMessages/admin.response.message";
 import { user_common } from "../../constant/responseMessages/user.response.message";
@@ -149,7 +150,8 @@ const user_common_handler = {
     },
 
     apply_internship: async (data: any, user_id: any): Promise<ApiResponse> => {
-        const { internship_id, name, email, phone } = data;
+        let { internship_id, name, email, phone } = data;
+        // internship_id= new mongoose.Types.ObjectId(internship_id);
         const res = await admin_internship_category__model.findOne({ _id: internship_id, status: { $eq: USER_STATUS.ACTIVE } });
         console.log(res, 'res');
         if (!res) {
@@ -169,10 +171,7 @@ const user_common_handler = {
         return showResponse(true, user_common.internship_apply_success, null, statusCodes.SUCCESS);
     },
 
-
-
-
-
+   
 }
 
 export default user_common_handler

@@ -128,7 +128,23 @@ const admin_common_handler = {
     },
 
     internship_applied_listing: async (): Promise<ApiResponse> => {
-        const res = await user_internship_form_model.find({ status: ADMIN_STATUS.ACTIVE }, { $sort: { createdAt: -1 } });
+        const res = await user_internship_form_model.aggregate([
+            {
+                $match: {
+                    status: { $eq: ADMIN_STATUS.ACTIVE },
+                }
+            },
+            {
+                $lookup: {
+                    from: 'internship_category',
+                    localField: 'internship_id',
+                    foreignField: '_id',
+                    as: 'internship_details'
+                }
+            }, {
+                $unwind: '$internship_details'
+            }
+        ]);
         if (!res) {
             return showResponse(false, admin_common.internship_fetched_err, null, statusCodes.API_ERROR);
         }

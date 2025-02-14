@@ -7,8 +7,9 @@ let user_internship_form_schema = new mongoose.Schema({
         ref: 'user'
     },
     internship_id: {
-        type: String,
-        default: ''
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'internship_category'
+        
     },
     name: {
         type: String,

@@ -24,6 +24,8 @@ const user_common={
     internship_not_found:'internship not found',
     internship_apply_success:'internship apply successfully',
     internship_apply_failed:'internship apply failed',
+    internship_form_not_found:'internship form not found',
+    internship_form_fetched_successfully:'internship form fetched successfully'
 }
 
 export  {userAuth,user_common}
