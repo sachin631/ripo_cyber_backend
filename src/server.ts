@@ -59,7 +59,7 @@ adminFunction();
 // Main router
 app.use('/api/v1', router);
 
-app.listen(PORT,'0.0.0.0', () => {
+app.listen(3000,'0.0.0.0', () => {
     console.log(`Server is connected to port ${PORT}`);
     console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
 });
