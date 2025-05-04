@@ -1,65 +1,111 @@
-const express = require("express");
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import swaggerUi from 'swagger-ui-express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { ADMIN_STATUS } from './constant/app.constant.js';
+import { hashPassword } from './helper/common.helper.js';
+import adminModel from './models/admin/admin.auth.model.js';
+import router from './routes/index.js';
+import './connection/connecttion.js';
+
+// ES Modules fix for __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Environment configuration
+dotenv.config();
+
 const app = express();
-require('dotenv').config({});
-const cors = require('cors');
-const cookie_parser = require('cookie-parser');
-const swaggerUi = require('swagger-ui-express')
-import { ADMIN_STATUS } from "./constant/app.constant";
-import { hashPassword } from "./helper/common.helper";
-import admin_model from "./models/admin/admin.auth.model";
-import router from "./routes/index";
-const path = require('path')
-require('./connection/connecttion');
-//
-let PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
-app.use(cors(
-    {
-        origin: ['http://localhost:3000','http://localhost:3002','https://main.d1bw0n2dnzdvzw.amplifyapp.com','https://master.d20bjzw7wn0bxs.amplifyapp.com'], // Frontend URLs
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
-        credentials: true, // Allow cookies or authentication headers
-    }
-));
-app.use(cookie_parser());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-// swagger setup
-app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use("/swagger.json", express.static(path.join(__dirname, '..', 'public', 'swagger/swagger.json')));
+// CORS Configuration
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3002',
+    'https://main.d1bw0n2dnzdvzw.amplifyapp.com',
+    'https://master.d20bjzw7wn0bxs.amplifyapp.com',
+    process.env.FRONTEND_PROD_URL || 'https://your-production-domain.com'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+app.use(cors(corsOptions));
 
-app.use("/api-docs", swaggerUi.serve,
-    swaggerUi.setup(undefined, {
-        swaggerOptions: {
-            url: "/swagger/swagger.json",
-            displayRequestDuration: true,
-            persistAuthorization: true,
-        },
+// Static files and Swagger documentation
+const publicPath = path.join(__dirname, '..', 'public');
+const swaggerPath = path.join(publicPath, 'swagger');
 
-    })
+app.use(express.static(publicPath));
+app.use('/swagger.json', express.static(path.join(swaggerPath, 'swagger.json')));
+
+app.use('/api-docs', 
+  swaggerUi.serve, 
+  swaggerUi.setup(undefined, {
+    swaggerOptions: {
+      url: '/swagger.json',
+      displayRequestDuration: true,
+      persistAuthorization: true,
+    },
+    customSiteTitle: 'API Documentation'
+  })
 );
 
-//create admin account
-const adminFunction = async () => {
-    const hashed = await hashPassword('123456')
-    const admin_cred: any = {
-        name: 'admin',
-        email: 'admin@yopmail.com',
-        password: hashed
+// Error handling middleware
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Internal Server Error' });
+});
+
+// Admin account initialization
+const initializeAdminAccount = async () => {
+  try {
+    const adminEmail = process.env.DEFAULT_ADMIN_EMAIL || 'admin@yopmail.com';
+    const adminPassword = process.env.DEFAULT_ADMIN_PASSWORD || '123456';
+    
+    const existingAdmin = await adminModel.findOne({ 
+      email: adminEmail,
+      status: ADMIN_STATUS.ACTIVE
+    });
+
+    if (!existingAdmin) {
+      const hashedPassword = await hashPassword(adminPassword);
+      await adminModel.create({
+        name: 'Admin',
+        email: adminEmail,
+        password: hashedPassword,
+        status: ADMIN_STATUS.ACTIVE
+      });
+      console.log('✅ Admin account initialized');
     }
-    const is_admin = await admin_model.findOne({ email: admin_cred.email, status: ADMIN_STATUS.ACTIVE });
-    if (is_admin) {
-        return;
-    }
-    await admin_model.create(admin_cred);
-}
-adminFunction();
+  } catch (error) {
+    console.error('❌ Error initializing admin account:', error);
+  }
+};
 
-
-
-// Main router
+// API routes
 app.use('/api/v1', router);
 
-app.listen(3001,'0.0.0.0', () => {
-    console.log(`Server is connected to port ${PORT}`);
-    console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy' });
+});
+
+// Start server
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📄 API Docs: http://localhost:${PORT}/api-docs`);
+  console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+  
+  // Initialize admin account after server starts
+  initializeAdminAccount();
 });
