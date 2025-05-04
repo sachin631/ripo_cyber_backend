@@ -2,9 +2,9 @@
   "name": "sachinbolierplate",
   "version": "1.0.0",
   "description": "sachin sangwan ts boiler plate",
-  "main": "dist/server.js",
+  "main": "build/server.js",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node build/server.js",
     "build": "tsc && npm run swagger",
     "dev": "npm run swagger && nodemon",
     "swagger": "npx tsoa spec",
