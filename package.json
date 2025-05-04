@@ -8,7 +8,7 @@
     "build": "tsc && npm run swagger",
     "dev": "npm run swagger && nodemon",
     "swagger": "npx tsoa spec",
-    "prebuild": "mkdir -p build/template && cp -a src/template build/",
+    "prebuild": "if [ -d \"src/template\" ]; then mkdir -p build/template && cp -a src/template build/; else echo \"No template directory found\"; fi",
     "render-build": "npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
